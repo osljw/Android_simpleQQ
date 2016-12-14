@@ -24,10 +24,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);//查找用户名控件
-        mPasswordView = (EditText) findViewById(R.id.password);//查找密码控件
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);   //用户名控件
+        mPasswordView = (EditText) findViewById(R.id.password);         //密码控件
 
-        //setOnEditorActionListener这个方法，并不是在我们点击EditText的时候触发，也不是在我们对EditText进行编辑时触发，而是在我们编辑完之后点击软键盘上的回车键才会触发。﻿﻿
+        //setOnEditorActionListener这个方法，并不是在我们点击EditText的时候触发，
+        // 也不是在我们对EditText进行编辑时触发，而是在我们编辑完之后点击软键盘上的回车键才会触发。﻿﻿
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //登陆按钮
+        //登录按钮
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -63,11 +64,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * 输入的检查
+     * 输入信息的检查
      */
     private void attemptLogin() {
 
-        // 初始化错误信息.
+        // 初始化错误信息为null
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
+        boolean cancel = false;//是否是非法信息
         View focusView = null;
 
         // 检查密码是否有效
@@ -92,11 +93,11 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        if ( cancel ) {
-            focusView.requestFocus();
-        } else {
+        if ( cancel ) {//非法信息
+            focusView.requestFocus();//标签用于指定屏幕内的焦点View。
+        } else {//合法信息
            //登陆跳转逻辑
-            if("1".equals(email) && "1234".equals(password)){  //合法信息
+            if("1".equals(email) && "1234".equals(password)){  //信息合法
                 Intent intent=new Intent();
                 intent.setClass(LoginActivity.this,MainActivity.class);
                 LoginActivity.this.startActivity(intent);
@@ -108,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * 密码是否和非法，至少需要4位
+     * 密码是否合法：至少需要4位
      * @param password
      * @return
      */
