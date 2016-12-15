@@ -5,6 +5,7 @@
               android:layout_width="fill_parent"
               android:layout_height="wrap_content">
 
+    <!--发送时间-->
     <LinearLayout
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -14,6 +15,7 @@
                 android:layout_width="wrap_content" android:layout_height="wrap_content"/>
     </LinearLayout>
 
+    <!--头像、用户名、内容-->
     <RelativeLayout
             android:layout_marginTop="5dp"
             android:layout_width="fill_parent" android:layout_height="wrap_content">

@@ -57,7 +57,6 @@ public class MoodAdapter extends BaseAdapter {
 
     /**
      * 获得控件管理对象
-     *
      * @param view
      * @return
      */
@@ -75,7 +74,6 @@ public class MoodAdapter extends BaseAdapter {
      */
     private class ViewHolder {
         private TextView tv_content, tv_time;
-
         ViewHolder(View view) {
             tv_content = (TextView) view.findViewById(R.id.tv_content);
             tv_time = (TextView) view.findViewById(R.id.tv_time);

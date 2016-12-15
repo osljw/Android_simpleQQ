@@ -24,12 +24,12 @@ import java.util.List;
  */
 public class ChatMainActivity extends Activity implements View.OnClickListener {
 
-    private Button mBtnSend;// 发送btn
-    private Button mBtnBack;// 返回btn
-    private EditText mEditTextContent;
-    private ListView mListView;
-    private ChatMsgViewAdapter mAdapter;// 消息视图的Adapter
-    private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();// 消息对象数组
+    private Button mBtnSend;            // 发送btn
+    private Button mBtnBack;            // 返回btn
+    private EditText mEditTextContent;  // 内容框
+    private ListView mListView;         // 聊天记录列表
+    private ChatMsgViewAdapter mAdapter;// 聊天记录视图的Adapter
+    private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();// 聊天记录对象数组
 
 
     @Override
@@ -45,6 +45,7 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
 
     /**
      * 初始化view
+     * 找出页面的控件
      */
     public void initView() {
         mListView= (ListView) findViewById(R.id.listview);
@@ -55,10 +56,11 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
     }
 
+    //消息数组
     private String[] msgArray = new String[] { "在吗，有时间吗?", "有！你呢？", "我也有", "那走吧",
             "走啊！去打球啊！", "要先吃点东西吗？", "不吃了", "好吧...",
             "今晚去吃东西吧？", "确定吗？", "不然呢？", "OK,走起！！" };
-
+    //时间数组
     private String[] dataArray = new String[] { "2016-12-11 18:00:02",
             "2016-12-11 18:10:22", "2016-12-11 18:11:24",
             "2016-12-11 18:20:23", "2016-12-11 18:30:31",
@@ -66,7 +68,8 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
             "2016-12-11 18:50:26", "2016-12-11 18:52:57",
             "2016-12-11 18:55:11", "2016-12-11 18:56:45",
             "2016-12-11 18:57:33", };
-    private final static int COUNT = 12;// 初始化数组总数
+    //数组总数
+    private final static int COUNT = 12;
 
     /**
      * 模拟加载消息历史，实际开发可以从数据库中读出
@@ -76,13 +79,13 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
             ChatMsgEntity entity = new ChatMsgEntity();
             entity.setDate(dataArray[i]);
             if (i % 2 == 0) {
-                entity.setName("CCC");
-                entity.setMsgType(true);// 收到的消息
+                entity.setName("CCC");   //设置对方姓名
+                entity.setMsgType(true); // 收到的消息
             } else {
-                entity.setName("YEN");
-                entity.setMsgType(false);// 自己发送的消息
+                entity.setName("YEN");   //设置自己姓名
+                entity.setMsgType(false);// 发送的消息
             }
-            entity.setMessage(msgArray[i]);
+            entity.setMessage(msgArray[i]);//消息内容
             mDataArrays.add(entity);
         }
 
@@ -112,10 +115,10 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
         String contString = mEditTextContent.getText().toString();
         if (contString.length() > 0) {
             ChatMsgEntity entity = new ChatMsgEntity();
-            entity.setName("YEN");
-            entity.setDate(getDate());
-            entity.setMessage(contString);
-            entity.setMsgType(false);
+            entity.setName("YEN");      //设置发送消息消息者姓名
+            entity.setDate(getDate());  //设置格式化的发送时间
+            entity.setMessage(contString); //设置发送内容
+            entity.setMsgType(false);      //设置消息类型，true 接受的 false发送的
 
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();// 通知ListView，数据已发生改变

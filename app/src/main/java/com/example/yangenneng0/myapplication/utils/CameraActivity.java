@@ -24,8 +24,8 @@ import java.io.File;
  */
 public class CameraActivity  extends AppCompatActivity {
 
-    private String path = Environment.getExternalStorageDirectory() + "/QQ_Test/";
-    private String fileName;
+    private String path = Environment.getExternalStorageDirectory() + "/QQ_Test/";//自定保存路径
+    private String fileName;//文件名称
 
 
     @Override
@@ -33,7 +33,7 @@ public class CameraActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        File file = new File(path);
+        File file = new File(path);//创建文件
         if (!file.exists()) {
             file.mkdir();
         }
@@ -42,7 +42,7 @@ public class CameraActivity  extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path + fileName)));
         startActivityForResult(intent, Activity.DEFAULT_KEYS_DIALER);
 
-
+        //返回首页
         Button button= (Button) findViewById(R.id.cgohome);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

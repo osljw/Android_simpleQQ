@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--抽屉视图控件DrawerLayout。使用这个控件，可以生成通过在屏幕上水平滑动打开或者关闭菜单，能给用户一个不错的体验效果。-->
+<!--
+    抽屉视图控件DrawerLayout。使用这个控件，可以生成通过在屏幕上水平滑动打开或者关闭菜单，
+    能给用户一个不错的体验效果。
+-->
 
 <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

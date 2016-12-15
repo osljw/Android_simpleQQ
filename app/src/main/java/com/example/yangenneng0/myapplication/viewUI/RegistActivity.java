@@ -32,12 +32,12 @@ public class RegistActivity   extends AppCompatActivity {
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);//查找用户名控件
         mPasswordView = (EditText) findViewById(R.id.password);      //查找密码控件
-        repassword=(EditText) findViewById(R.id.repassword);
-        rename=(EditText) findViewById(R.id.rename);
-        tel=(EditText) findViewById(R.id.tel);
+        repassword=(EditText) findViewById(R.id.repassword);         //重复密码控件
+        rename=(EditText) findViewById(R.id.rename);                 //真实姓名控件
+        tel=(EditText) findViewById(R.id.tel);                       //电话号码控件
 
 
-        //登陆按钮
+        //注册按钮
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +55,7 @@ public class RegistActivity   extends AppCompatActivity {
      */
     private void attemptLogin() {
 
-        // 初始化错误信息.
+        // 初始化控件错误信息
         mEmailView.setError(null);
         mPasswordView.setError(null);
         repassword.setError(null);
@@ -115,12 +115,12 @@ public class RegistActivity   extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             //注册逻辑实现
-            //-------------------------------
+            /*-------------------------------*/
             if("1".equals(email) && "1234".equals(password)){  //合法信息
                 Intent intent=new Intent();
                 intent.setClass(RegistActivity.this,LoginActivity.class);//转到登陆
                 RegistActivity.this.startActivity(intent);
-            //-------------------------------
+            /*-------------------------------*/
             }
             else {
                 Toast.makeText(RegistActivity.this, "信息不合法，请确认输入", Toast.LENGTH_SHORT).show();
@@ -139,7 +139,8 @@ public class RegistActivity   extends AppCompatActivity {
     }
 
     /**
-     * 判断是否为数字
+     * 判断电话号码是否合法
+     * 只能13 15 18开头，且必须为11位
      * @param value
      * @return
      */

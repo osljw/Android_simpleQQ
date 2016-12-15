@@ -21,14 +21,14 @@ import java.util.List;
  */
 public class PersonAdapter  extends BaseAdapter {
 
-    private Context context;//为了跳转而写的
+    private Context context;//为了实现跳转而写的
 
     private List<Person> list;
     private LayoutInflater inflater;
 
     public PersonAdapter(Context context, List<Person> list) {
         inflater = LayoutInflater.from(context);
-        this.context=context;//为了跳转而写的
+        this.context=context;//为了实现跳转而写的
         this.list = list;
     }
 
@@ -50,12 +50,12 @@ public class PersonAdapter  extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder; //自定义内部内类
+        ViewHolder holder; //ViewHolder是自定义内部内类
         if(null==convertView){
             holder= new ViewHolder();
-            convertView=inflater.inflate(R.layout.person_list_item,null);//单个联系人
-            holder.tv_name= (TextView) convertView.findViewById(R.id.tv_name);//姓名
-            holder.tv_word= (TextView) convertView.findViewById(R.id.tv_word);//名字字母
+            convertView=inflater.inflate(R.layout.person_list_item,null);       //单个联系人
+            holder.tv_name= (TextView) convertView.findViewById(R.id.tv_name);  //姓名
+            holder.tv_word= (TextView) convertView.findViewById(R.id.tv_word);  //名字字母
             convertView.setTag(holder);
         }else {
             holder= (ViewHolder) convertView.getTag();
@@ -73,7 +73,7 @@ public class PersonAdapter  extends BaseAdapter {
                 Intent intent=new Intent();
                 intent.setClass(context,ChatMainActivity.class);
                 context.startActivity(intent);
-
+                //提示当前点击的是哪个类
                 Snackbar.make(v, "position:"+position, Snackbar.LENGTH_LONG)  .setAction("Action", null).show();
             }
         });
@@ -91,7 +91,6 @@ public class PersonAdapter  extends BaseAdapter {
                 holder.tv_word.setVisibility(View.VISIBLE);
             }
         }
-
 
         return convertView;
     }

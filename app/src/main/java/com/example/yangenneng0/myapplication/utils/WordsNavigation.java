@@ -17,37 +17,34 @@ public class WordsNavigation extends View {
     private String words[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
             "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
 
-    /*字母画笔*/
-    private Paint wordsPaint;
-    /*字母背景画笔*/
-    private Paint bgPaint;
-    /*每一个字母的宽度*/
-    private int itemWidth;
-    /*每一个字母的高度*/
-    private int itemHeight;
-    /*手指按下的字母索引*/
-    private int touchIndex = 0;
-    /*手指按下的字母改变接口*/
-    private onWordsChangeListener listener;//自定义类
+
+    private Paint wordsPaint;        //字母画笔
+    private Paint bgPaint;           //字母背景画笔
+    private int itemWidth;           //每一个字母的宽度
+    private int itemHeight;         //每一个字母的高度
+    private int touchIndex = 0;     //手指按下的字母索引
+    private onWordsChangeListener listener;//自定义类  手指按下的字母改变接口
 
 
     /**
      * 初始化画笔
      */
     private void init(){
+        //字母画笔
         wordsPaint=new  Paint();
         wordsPaint.setColor(Color.parseColor("#F7F7F7"));
         wordsPaint.setAntiAlias(true);
         wordsPaint.setTextSize(40);
         wordsPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
+        //字母背景画笔
         bgPaint = new Paint();
         bgPaint.setAntiAlias(true);
         bgPaint.setColor(Color.parseColor("#1dcdef"));
 
     }
 
-    /*---------------继承View类自动生成------------------*/
+    /*---------------继承View类自动生成的类 begin------------------*/
 
     public WordsNavigation(Context context) {
         super(context);
@@ -64,14 +61,13 @@ public class WordsNavigation extends View {
         init();
     }
 
-    /*-----------------继承View类自动生成----------------*/
+    /*-----------------继承View类自动生成  end----------------*/
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         itemWidth=getMeasuredWidth();
-        //使得边距好看一些
-        int height = getMeasuredHeight() - 10;
+        int height = getMeasuredHeight() - 10;  //使得边距好看一些
         itemHeight = height / 27;
     }
 
@@ -80,13 +76,13 @@ public class WordsNavigation extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         for (int i = 0; i < words.length; i++) {
-            //判断是不是我们按下的当前字母
-            if (touchIndex == i) {
+
+            if (touchIndex == i) {//判断是不是我们按下的当前字母
                 //绘制文字圆形背景
                 canvas.drawCircle(itemWidth / 2, itemHeight / 2 + i * itemHeight, 23, bgPaint);
-                wordsPaint.setColor(Color.WHITE);
+                wordsPaint.setColor(Color.WHITE);//当前按下的是白色字体
             } else {
-                wordsPaint.setColor(Color.GRAY);
+                wordsPaint.setColor(Color.GRAY); //否则为黑色字体
             }
             //获取文字的宽高
             Rect rect = new Rect();
@@ -127,7 +123,10 @@ public class WordsNavigation extends View {
         return true;
     }
 
-    /*设置当前按下的是那个字母*/
+    /**
+     * 设置当前按下的是那个字母
+     * @param word
+     */
     public void setTouchIndex(String word) {
         for (int i = 0; i < words.length; i++) {
             if (words[i].equals(word)) {
@@ -138,8 +137,9 @@ public class WordsNavigation extends View {
         }
     }
 
-
-    /*手指按下了哪个字母的回调接口*/
+    /**
+     * 手指按下了哪个字母的回调接口
+     */
     public interface onWordsChangeListener {
         void wordsChange(String words);
     }

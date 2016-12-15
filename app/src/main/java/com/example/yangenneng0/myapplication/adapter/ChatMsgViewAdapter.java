@@ -14,18 +14,18 @@ import java.util.List;
 /**
  * User: yangenneng
  * DateTime: 2016/12/11 17:58
- * Description:
- * 消息ListView的Adapter
+ * Description: 聊天记录ListView的Adapter
  */
 public class ChatMsgViewAdapter extends BaseAdapter {
 
+    //消息类型
     public static interface IMsgViewType {
-        int IMVT_COM_MSG = 0;// 收到对方的消息
-        int IMVT_TO_MSG = 1;// 自己发送出去的消息
+        int IMVT_COM_MSG = 0;       // 收到对方的消息
+        int IMVT_TO_MSG = 1;        // 自己发送出去的消息
     }
 
     private static final int ITEMCOUNT = 2;// 消息类型的总数
-    private List<ChatMsgEntity> coll;// 消息对象数组
+    private List<ChatMsgEntity> coll;      // 消息对象数组
     private LayoutInflater mInflater;
 
     public ChatMsgViewAdapter(Context context, List<ChatMsgEntity> coll) {
@@ -78,14 +78,13 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
         ViewHolder viewHolder=null;
         if(convertView==null){
-            if(isComMsg){
+            if(isComMsg){//如果是收到的
                 convertView=mInflater.inflate(R.layout.chatting_item_msg_text_left,null);
             }else {
                 convertView=mInflater.inflate(R.layout.chatting_item_msg_text_right,null);
-
             }
 
-            viewHolder=new ViewHolder();
+            viewHolder=new ViewHolder();  //自定义类
             viewHolder.tvSendTime= (TextView) convertView.findViewById(R.id.tv_sendtime);
             viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
             viewHolder.tvContent = (TextView) convertView .findViewById(R.id.tv_chatcontent);

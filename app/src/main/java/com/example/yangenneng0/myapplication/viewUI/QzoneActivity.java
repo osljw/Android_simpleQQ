@@ -18,9 +18,9 @@ import java.util.List;
 public class QzoneActivity  extends FragmentActivity {
 
 
-    private ListView lv;
-    private MoodAdapter adapter;
-    private List<MoodEntity> list;
+    private ListView lv;            //QQ说说视图
+    private MoodAdapter adapter;    //QQ说说适配器
+    private List<MoodEntity> list;  //QQ说说列表
 
 
     @Override
@@ -29,7 +29,7 @@ public class QzoneActivity  extends FragmentActivity {
         setContentView(R.layout.activity_qzone);
 
 
-        lv = (ListView) findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.lv);//QQ说说ListView
         list =new ArrayList<>();
         list.add(new MoodEntity("2016-12-13 19:13:50","今天心情怎么样~~~"));
         list.add(new MoodEntity("2016-12-13 19:21:50","今天上了计算机网络课程..."));

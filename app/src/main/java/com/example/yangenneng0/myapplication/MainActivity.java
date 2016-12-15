@@ -41,13 +41,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView.OnNavigationItemSelectedListener , AbsListView.OnScrollListener{
     //侧拉菜单滑出来的那一部分属于NavigationView
 
-
     //---联系人列表属性
-    private Handler handler;
-    private List<Person> list;
-    private TextView tv;
-    private ListView listView;
-    private WordsNavigation word;
+    private Handler handler;        //
+    private List<Person> list;      //联系人列表基本信息
+    private TextView tv;            //绘制的字母
+    private ListView listView;      //使用适配器的联系人列表
+    private WordsNavigation word;   //右侧字母导航
     //---联系人列表属性
 
     @Override
@@ -59,33 +58,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //--------------联系人
+        /*--------------联系人 begin--------------*/
         tv = (TextView) findViewById(R.id.tv);
         word = (WordsNavigation) findViewById(R.id.words);
         listView = (ListView) findViewById(R.id.list);
-        //--------------联系人
-        //初始化数据
-        initData();
-        //初始化列表
-        initListView();
-        //设置列表点击滑动监听
-        handler = new Handler();
+
+        initData();//初始化联系人数据
+        initListView();//初始化联系人列表
+
+        handler = new Handler();//设置列表点击滑动监听
         word.setOnWordsChangeListener(this);
-        //--------------联系人
+        /*--------------联系人 end--------------*/
 
 
-        ////悬浮按钮
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View view) {
-        //        //界面底部弹出信息 比toast更加好,毕竟snackbar 可以响应点击事件
-        //        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //                .setAction("Action", null).show();
-        //    }
-        //});
-
-        //Android官方侧滑菜单DrawerLayout
+        //Android侧滑菜单DrawerLayout
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         //ActionBarDrawerToggle监听Drawer拉出、隐藏
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -96,17 +82,6 @@ public class MainActivity extends AppCompatActivity
         //设置左侧菜单
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        ////聊天
-        //Button button= (Button) findViewById(R.id.goChat);
-        //button.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-        //        Intent intent = new Intent();
-        //        intent.setClass(MainActivity.this, ChatMainActivity.class);
-        //        MainActivity.this.startActivity(intent);
-        //    }
-        //});
 
         //发表说说
         FloatingActionButton button= (FloatingActionButton) findViewById(R.id.button_mood);
@@ -147,7 +122,6 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * 用于初始化菜单 (只会在第一次初始化菜单时调用）
-     *
      * @param menu 即将要显示的Menu实例
      * @return 返回true则显示该menu, false 则不显示
      */
@@ -160,8 +134,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * 菜单项被点击时调用，也就是菜单项的监听方法。
-     *
-     * @param item
+     * @param item 菜单项点击的子菜单
      * @return
      */
     @Override
@@ -172,13 +145,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if ( id == R.id.action_settings ) {
+        if ( id == R.id.action_settings ) {   //安全退出
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, LoginActivity.class);
             MainActivity.this.startActivity(intent);
             return true;
         }
-        if ( id == R.id.action_regist ) {
+        if ( id == R.id.action_regist ) {    //立即注册
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, RegistActivity.class);
             MainActivity.this.startActivity(intent);
@@ -190,8 +163,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * 左侧导航被选择时触发的事件
-     *
-     * @param item
+     * @param item 左侧选中的菜单
      * @return
      */
     @SuppressWarnings("StatementWithEmptyBody")
@@ -205,16 +177,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent();
             intent.setClass(MainActivity.this,CameraActivity.class);
             MainActivity.this.startActivity(intent);
-        } else if ( id == R.id.nav_gallery ) {  //相册
 
-            //Intent intent1 = new Intent(Intent.ACTION_GET_CONTENT);
-            //intent1.addCategory(Intent.CATEGORY_OPENABLE);
-            //intent1.setType("image/*");
-            //if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ) {
-            //    startActivityForResult(intent1, 3);
-            //} else {
-            //    startActivityForResult(intent1, 3);
-            //}
+        } else if ( id == R.id.nav_gallery ) {  //相册 获取指定目录下的所有照片
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
             String type = "image/*";
@@ -222,24 +186,23 @@ public class MainActivity extends AppCompatActivity
             intent.setDataAndType(uri, type);
             startActivity(intent);
 
-        } else if ( id == R.id.nav_slideshow ) {  //视频
-
+        } else if ( id == R.id.nav_slideshow ) {  //视频 调用视频播放器播放指定的视频
             Intent intent = new Intent(Intent.ACTION_VIEW);
             String type = "video/mp4";
             Uri uri = Uri.parse("file:///sdcard/QQ_TEST_Video/03简单句的补充.mp4");
             intent.setDataAndType(uri, type);
             startActivity(intent);
 
-        } else if ( id == R.id.nav_manage ) {  //设置
+        } else if ( id == R.id.nav_manage ) {  //系统设置
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, SettingsActivity.class);
             MainActivity.this.startActivity(intent);
-        } else if ( id == R.id.nav_share ) {  //分享
+        } else if ( id == R.id.nav_share ) {  //分享软件
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, MessageActivity.class);
             MainActivity.this.startActivity(intent);
 
-        } else if ( id == R.id.nav_send ) {  //位置
+        } else if ( id == R.id.nav_send ) {  //地理位置
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, MapActivity.class);
             MainActivity.this.startActivity(intent);
@@ -252,15 +215,19 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-    //继承 WordsNavigation.onWordsChangeListener
-    //手指按下字母改变监听回调
+    /**
+     * 继承 WordsNavigation.onWordsChangeListener 手指按下字母改变监听回调
+     * @param words 按下的字母
+     */
     @Override
     public void wordsChange(String words) {
-        updateWord(words);
-        updateListView(words);
+        updateWord(words);      //更新字母
+        updateListView(words);  //更新列表
     }
 
+    /**
+     * 初始化好友列表
+     */
     private void initListView() {
         PersonAdapter adapter = new PersonAdapter(this, list);
         listView.setAdapter(adapter);
@@ -304,7 +271,7 @@ public class MainActivity extends AppCompatActivity
         list.add(new Person("阿道夫"));
         list.add(new Person("姜宇航"));
 
-        //对集合排序
+        //对集合排序：按字母顺序排序
         Collections.sort(list, new Comparator<Person>() {
             @Override
             public int compare(Person lhs, Person rhs) {
@@ -320,6 +287,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     *
+     * @param view
+     * @param firstVisibleItem
+     * @param visibleItemCount
+     * @param totalItemCount
+     */
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         //当滑动列表的时候，更新右侧字母列表的选中状态
@@ -327,6 +301,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
+     * 根据右侧的选中字母重新排序中间联系人的选中
+     * 把那个字母的联系人的第一个找到就可以了 设置那个时候的选中状态为那个位置
      * @param words 首字母
      */
     private void updateListView(String words) {
@@ -344,7 +320,6 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * 更新中央的字母提示
-     *
      * @param words 首字母
      */
     private void updateWord(String words) {
@@ -358,7 +333,7 @@ public class MainActivity extends AppCompatActivity
             public void run() {
                 tv.setVisibility(View.GONE);
             }
-        }, 500);
+        }, 500);//绘制的画面停留0.5s
     }
 
 }

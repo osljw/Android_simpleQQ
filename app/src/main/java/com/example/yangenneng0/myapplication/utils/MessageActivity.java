@@ -25,7 +25,6 @@ public class MessageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        String telPhone="18468194784";
         textView= (AutoCompleteTextView) findViewById(R.id.sharePerson);//联系人
 
         Button button= (Button) findViewById(R.id.sendMSM);
@@ -46,7 +45,6 @@ public class MessageActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
-
 
                 Intent intent=new Intent();
                 intent.setClass(MessageActivity.this,MainActivity.class);
