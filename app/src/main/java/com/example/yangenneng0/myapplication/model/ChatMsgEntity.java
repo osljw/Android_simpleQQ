@@ -1,5 +1,7 @@
 package com.example.yangenneng0.myapplication.model;
 
+import com.example.yangenneng0.myapplication.utils.APPglobal;
+
 /**
  * User: yangenneng
  * DateTime: 2016/12/11 17:08
@@ -12,10 +14,20 @@ public class ChatMsgEntity {
     private String message;//消息内容
     private boolean isComMeg = true;// 是否为收到的消息
 
+    private String sendp;//发送者
+    private String receivep;//接收者
+
     //构造函数
     public ChatMsgEntity() {
     }
 
+    public ChatMsgEntity(String date,String message,String sendp,String receivep){
+        this.date=date;
+        this.message=message;
+        this.receivep=receivep;
+        this.sendp=sendp;
+        this.isComMeg=!(sendp.equals(APPglobal.NAME));//发送者是否等于当前用户 不是得话就是接受的消息
+    }
     public ChatMsgEntity(String name, String date, String text, boolean isComMsg) {
         super();
         this.name = name;
@@ -58,4 +70,19 @@ public class ChatMsgEntity {
         isComMeg = isComMsg;
     }
 
+    public String getSendp() {
+        return sendp;
+    }
+
+    public void setSendp(String sendp) {
+        this.sendp = sendp;
+    }
+
+    public String getReceivep() {
+        return receivep;
+    }
+
+    public void setReceivep(String receivep) {
+        this.receivep = receivep;
+    }
 }

@@ -23,7 +23,6 @@ public class RegistActivity   extends AppCompatActivity {
     private EditText mPasswordView;           //密码
     private EditText repassword;              //确认密码
     private EditText rename;                  //真实姓名
-    private EditText tel;                     //电话号码
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,6 @@ public class RegistActivity   extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);      //查找密码控件
         repassword=(EditText) findViewById(R.id.repassword);         //重复密码控件
         rename=(EditText) findViewById(R.id.rename);                 //真实姓名控件
-        tel=(EditText) findViewById(R.id.tel);                       //电话号码控件
 
 
         //注册按钮
@@ -59,14 +57,12 @@ public class RegistActivity   extends AppCompatActivity {
         mEmailView.setError(null);
         mPasswordView.setError(null);
         repassword.setError(null);
-        tel.setError(null);
 
         // 获取输入信息.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String mrepassword = repassword.getText().toString();
         String mname=rename.getText().toString();
-        String mtel= tel.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -91,16 +87,7 @@ public class RegistActivity   extends AppCompatActivity {
             cancel = true;
         }
 
-        //检查电话
-        if(!isNum(mtel) ){
-            tel.setError("电话必须为数字,且以13|15|18开头");
-            focusView = tel;
-            cancel = true;
-        }if(mtel.length()!=11 ){
-            tel.setError("电话长度必须为11");
-            focusView = tel;
-            cancel = true;
-        }
+
 
         //检查真实姓名
         if(mname.equals("")){
@@ -138,16 +125,6 @@ public class RegistActivity   extends AppCompatActivity {
         return password.length() >= 4;
     }
 
-    /**
-     * 判断电话号码是否合法
-     * 只能13 15 18开头，且必须为11位
-     * @param value
-     * @return
-     */
-    private boolean isNum(String value){
-        if(value.matches("^(13|15|18)\\d{9}$"))
-            return true;
-        else return false;
-    }
+
 
 }

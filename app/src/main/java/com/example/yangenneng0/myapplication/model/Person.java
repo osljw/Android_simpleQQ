@@ -8,14 +8,19 @@ import com.example.yangenneng0.myapplication.utils.PinYinUtils;
  * Description:好友实体类
  */
 public class Person {
-    //姓名
-    private String name;
-    //拼音
-    private String pinyin;
-    //拼音首字母
-    private String headerWord;
 
-    public Person(String name) {
+    private String name; //姓名
+    private String pinyin;//拼音
+    private String headerWord; //拼音首字母
+
+    private String username;//用户名
+    private String password;//密码
+
+    public  Person(){}
+
+    public Person(String name,String username,String password) {
+        this.username=username;
+        this.password=password;
         this.name = name;
         this.pinyin = PinYinUtils.getPinyin(name);
         headerWord = pinyin.substring(0, 1);
@@ -35,5 +40,21 @@ public class Person {
 
     public String getHeaderWord() {
         return headerWord;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

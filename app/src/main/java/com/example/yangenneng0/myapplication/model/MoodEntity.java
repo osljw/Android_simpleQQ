@@ -1,5 +1,7 @@
 package com.example.yangenneng0.myapplication.model;
 
+import com.example.yangenneng0.myapplication.utils.APPglobal;
+
 /**
  * User: yangenneng
  * DateTime: 2016/12/13 19:57
@@ -9,7 +11,18 @@ public class MoodEntity {
     private String content;
     private String time;
 
+    private String person;//发布者姓名
+
+    public MoodEntity(){}
+
     public MoodEntity(String content, String time) {
+        this.content = content;
+        this.time = time;
+        this.person= APPglobal.NAME;//获取当前登陆的用户姓名
+    }
+
+    public MoodEntity(String content, String time,String personname) {
+        this.person=personname;
         this.content = content;
         this.time = time;
     }
@@ -28,5 +41,13 @@ public class MoodEntity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getPerson() {
+        return person;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
     }
 }
