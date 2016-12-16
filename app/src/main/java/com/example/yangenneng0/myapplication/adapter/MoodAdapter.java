@@ -19,7 +19,7 @@ import java.util.List;
 public class MoodAdapter extends BaseAdapter {
 
     //数据
-    private List<MoodEntity> list;
+    private List<MoodEntity> list;          //说说列表
     private LayoutInflater mInflater;
 
     public MoodAdapter(Context context, List<MoodEntity> list) {

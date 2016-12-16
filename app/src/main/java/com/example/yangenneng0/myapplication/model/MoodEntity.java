@@ -8,8 +8,8 @@ import com.example.yangenneng0.myapplication.utils.APPglobal;
  * Description:说说实体类
  */
 public class MoodEntity {
-    private String content;
-    private String time;
+    private String content;//说说内容
+    private String time;   //说说发布时间
 
     private String person;//发布者姓名
 

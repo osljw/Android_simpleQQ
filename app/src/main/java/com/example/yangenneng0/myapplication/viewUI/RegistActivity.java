@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.example.yangenneng0.myapplication.LoginActivity;
 import com.example.yangenneng0.myapplication.R;
+import com.example.yangenneng0.myapplication.dao.PersonDAO;
+import com.example.yangenneng0.myapplication.model.Person;
+
+import java.sql.SQLException;
 
 /**
  * User: yangenneng
@@ -103,7 +107,23 @@ public class RegistActivity   extends AppCompatActivity {
         } else {
             //注册逻辑实现
             /*-------------------------------*/
-            if("1".equals(email) && "1234".equals(password)){  //合法信息
+
+            String mrename=rename.getText().toString();
+            String memail=mEmailView.getText().toString();
+            String mpassword=repassword.getText().toString();
+            Person person=new Person(mrename,memail,mpassword);
+
+            PersonDAO personDAO=new PersonDAO();
+            boolean isSucess=false;
+
+            try {
+                isSucess= personDAO.insertPerson(person);
+            } catch ( SQLException e ) {
+                e.printStackTrace();
+            }
+
+            if(isSucess){  //合法信息
+                Toast.makeText(RegistActivity.this, "注册成功，请登录", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent();
                 intent.setClass(RegistActivity.this,LoginActivity.class);//转到登陆
                 RegistActivity.this.startActivity(intent);

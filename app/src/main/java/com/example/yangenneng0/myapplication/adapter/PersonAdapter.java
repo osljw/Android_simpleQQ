@@ -23,7 +23,7 @@ public class PersonAdapter  extends BaseAdapter {
 
     private Context context;//为了实现跳转而写的
 
-    private List<Person> list;
+    private List<Person> list;//联系人列表
     private LayoutInflater inflater;
 
     public PersonAdapter(Context context, List<Person> list) {

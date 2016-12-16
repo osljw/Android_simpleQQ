@@ -18,6 +18,14 @@ public class Person {
 
     public  Person(){}
 
+    public  Person(String name){
+        this.name=name;
+        this.password="";
+        this.username="";
+        this.pinyin = PinYinUtils.getPinyin(name);
+        headerWord = pinyin.substring(0, 1);
+    }
+
     public Person(String name,String username,String password) {
         this.username=username;
         this.password=password;

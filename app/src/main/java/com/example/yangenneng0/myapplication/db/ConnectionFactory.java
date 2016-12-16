@@ -31,4 +31,13 @@ public class ConnectionFactory {
         return conn;
     }
 
+
+    public static void main(String[] args) {
+        Connection connection=ConnectionFactory.getConnection();
+        if(connection!=null)
+            System.out.println("数据库连接成功");
+        else
+            System.out.println("数据库连接失败");
+    }
+
 }
