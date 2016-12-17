@@ -3,6 +3,7 @@ package com.example.yangenneng0.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import com.example.yangenneng0.myapplication.db.DbConnection;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +18,8 @@ public class WelcomeActivity  extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        DbConnection.setContext(this.getApplicationContext());//创建数据库
 
         final Intent intent=new Intent();
         intent.setClass(WelcomeActivity.this,LoginActivity.class);

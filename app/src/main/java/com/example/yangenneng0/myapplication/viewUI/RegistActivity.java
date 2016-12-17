@@ -14,8 +14,6 @@ import com.example.yangenneng0.myapplication.R;
 import com.example.yangenneng0.myapplication.dao.PersonDAO;
 import com.example.yangenneng0.myapplication.model.Person;
 
-import java.sql.SQLException;
-
 /**
  * User: yangenneng
  * DateTime: 2016/12/10 15:10
@@ -116,22 +114,27 @@ public class RegistActivity   extends AppCompatActivity {
             PersonDAO personDAO=new PersonDAO();
             boolean isSucess=false;
 
-            try {
-                isSucess= personDAO.insertPerson(person);
-            } catch ( SQLException e ) {
-                e.printStackTrace();
+            if(personDAO.checkUsername(memail)){
+                Toast.makeText(RegistActivity.this, "用户名已存在，请重新输入", Toast.LENGTH_SHORT).show();
+
+            }
+            else{
+
+                isSucess= personDAO.insert(person); //添加到数据库
+
+                if(isSucess){  //合法信息
+                    Toast.makeText(RegistActivity.this, "注册成功，请登录", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent();
+                    intent.setClass(RegistActivity.this,LoginActivity.class);//转到登陆
+                    RegistActivity.this.startActivity(intent);
+            /*-------------------------------*/
+                }
+                else {
+                    Toast.makeText(RegistActivity.this, "信息不合法，请确认输入", Toast.LENGTH_SHORT).show();
+                }
             }
 
-            if(isSucess){  //合法信息
-                Toast.makeText(RegistActivity.this, "注册成功，请登录", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent();
-                intent.setClass(RegistActivity.this,LoginActivity.class);//转到登陆
-                RegistActivity.this.startActivity(intent);
-            /*-------------------------------*/
-            }
-            else {
-                Toast.makeText(RegistActivity.this, "信息不合法，请确认输入", Toast.LENGTH_SHORT).show();
-            }
+
         }
     }
 

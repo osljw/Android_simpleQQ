@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
+import com.example.yangenneng0.myapplication.dao.PersonDAO;
 import com.example.yangenneng0.myapplication.viewUI.RegistActivity;
 
 /**
@@ -124,7 +125,9 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();//标签用于指定屏幕内的焦点View。
         } else {//合法信息
            //登陆跳转逻辑
-            if("1".equals(email) && "1234".equals(password)){  //信息合法
+            PersonDAO personDAO=new PersonDAO();
+            boolean sussess=personDAO.chechLogin(email,password);
+            if(sussess){  //信息合法
                 Intent intent=new Intent();
                 intent.setClass(LoginActivity.this,MainActivity.class);
                 LoginActivity.this.startActivity(intent);
