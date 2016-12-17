@@ -2,6 +2,8 @@ package com.example.yangenneng0.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -15,6 +17,8 @@ import com.example.yangenneng0.myapplication.viewUI.RegistActivity;
  * 登录页面
  */
 public class LoginActivity extends AppCompatActivity {
+
+    private static boolean isExit=false;//判断是否直接退出程序
 
     private AutoCompleteTextView mEmailView;  //用户名
     private EditText mPasswordView;           //密码
@@ -62,6 +66,29 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit=false;
+        }
+    };
+
+    //退出确认
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(!isExit){
+                isExit=true;
+                Toast.makeText(getApplicationContext(),"再按一次退出程序",Toast.LENGTH_SHORT).show();
+                handler.sendEmptyMessageDelayed(0,2000);
+            }
+        }else {
+            finish();
+            System.exit(0);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     /**
      * 输入信息的检查

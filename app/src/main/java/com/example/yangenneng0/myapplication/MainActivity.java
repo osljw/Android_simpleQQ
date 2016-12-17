@@ -4,18 +4,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.yangenneng0.myapplication.adapter.PersonAdapter;
 import com.example.yangenneng0.myapplication.model.Person;
 import com.example.yangenneng0.myapplication.utils.CameraActivity;
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity
         implements  WordsNavigation.onWordsChangeListener,
         NavigationView.OnNavigationItemSelectedListener , AbsListView.OnScrollListener{
     //侧拉菜单滑出来的那一部分属于NavigationView
+
+    private static boolean isExit=false;//判断是否直接退出程序
 
     //---联系人列表属性
     private Handler handler;        //
@@ -334,6 +339,31 @@ public class MainActivity extends AppCompatActivity
                 tv.setVisibility(View.GONE);
             }
         }, 500);//绘制的画面停留0.5s
+    }
+
+
+    Handler myhandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit=false;
+        }
+    };
+
+    //退出确认
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(!isExit){
+                isExit=true;
+                Toast.makeText(getApplicationContext(),"再按一次退出程序",Toast.LENGTH_SHORT).show();
+                myhandler.sendEmptyMessageDelayed(0,2000);
+            }
+        }else {
+            finish();
+            System.exit(0);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
