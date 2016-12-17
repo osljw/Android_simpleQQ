@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#89cae2"
-                android:inputType="textMultiLine"
+                android:inputType="textEmailAddress"
                 android:minLines="3"
                 android:singleLine="true"/>
 

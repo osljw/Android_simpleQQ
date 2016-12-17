@@ -23,24 +23,25 @@ public class PersonDAO {
                     personList=new ArrayList<Person>();
                 }
             }
-        }
 
-        //把数据库中已有的数据拿出来
-        DbConnection connection=new DbConnection();
-        SQLiteDatabase db=connection.getConnection();
-        Cursor cursor=db.query("tb_person",null,null,null,null,null,null);
-        while ( cursor.moveToNext() ){
-            int namenum=cursor.getColumnIndex("name");
-            int usernamenum=cursor.getColumnIndex("username");
-            int passwordnum=cursor.getColumnIndex("password");
+            //把数据库中已有的数据拿出来
+            DbConnection connection=new DbConnection();
+            SQLiteDatabase db=connection.getConnection();
+            Cursor cursor=db.query("tb_person",null,null,null,null,null,null);
+            while ( cursor.moveToNext() ){
+                int namenum=cursor.getColumnIndex("name");
+                int usernamenum=cursor.getColumnIndex("username");
+                int passwordnum=cursor.getColumnIndex("password");
 
-            String name=cursor.getString(namenum);
-            String username=cursor.getString(usernamenum);
-            String password=cursor.getString(passwordnum);
+                String name=cursor.getString(namenum);
+                String username=cursor.getString(usernamenum);
+                String password=cursor.getString(passwordnum);
 
-            Person person=new Person(name,username,password);
-            personList.add(person);
-            cursor.moveToNext();
+                Person person=new Person(name,username,password);
+                personList.add(person);
+                cursor.moveToNext();
+            }
+
         }
 
         return personList;

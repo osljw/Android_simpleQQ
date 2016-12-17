@@ -20,11 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.yangenneng0.myapplication.adapter.PersonAdapter;
+import com.example.yangenneng0.myapplication.dao.PersonDAO;
 import com.example.yangenneng0.myapplication.model.Person;
-import com.example.yangenneng0.myapplication.utils.CameraActivity;
-import com.example.yangenneng0.myapplication.utils.MapActivity;
-import com.example.yangenneng0.myapplication.utils.MessageActivity;
-import com.example.yangenneng0.myapplication.utils.WordsNavigation;
+import com.example.yangenneng0.myapplication.utils.*;
 import com.example.yangenneng0.myapplication.viewUI.QQmoodActivity;
 import com.example.yangenneng0.myapplication.viewUI.QzoneActivity;
 import com.example.yangenneng0.myapplication.viewUI.RegistActivity;
@@ -46,6 +44,7 @@ public class MainActivity extends AppCompatActivity
 
     private static boolean isExit=false;//判断是否直接退出程序
 
+
     //---联系人列表属性
     private Handler handler;        //
     private List<Person> list;      //联系人列表基本信息
@@ -59,11 +58,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //顶部工具栏
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        /*--------------联系人 begin--------------*/
+         /*--------------联系人 begin--------------*/
         tv = (TextView) findViewById(R.id.tv);
         word = (WordsNavigation) findViewById(R.id.words);
         listView = (ListView) findViewById(R.id.list);
@@ -74,6 +69,11 @@ public class MainActivity extends AppCompatActivity
         handler = new Handler();//设置列表点击滑动监听
         word.setOnWordsChangeListener(this);
         /*--------------联系人 end--------------*/
+
+        //顶部工具栏
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
 
         //Android侧滑菜单DrawerLayout
@@ -109,6 +109,10 @@ public class MainActivity extends AppCompatActivity
                 MainActivity.this.startActivity(intent);
             }
         });
+
+        //给左侧导航赋值当前登录用户名
+        //TextView loginName= (TextView) findViewById(R.id.loginname);
+        //loginName.setText(APPglobal.USERNAME);
 
     }
 
@@ -244,37 +248,39 @@ public class MainActivity extends AppCompatActivity
      */
     private void initData() {
         list = new ArrayList<>();
-        list.add(new Person("Dave"));
-        list.add(new Person("张晓飞"));
-        list.add(new Person("杨光福"));
-        list.add(new Person("阿钟"));
-        list.add(new Person("胡继群"));
-        list.add(new Person("徐歌阳"));
-        list.add(new Person("钟泽兴"));
-        list.add(new Person("宋浮点"));
-        list.add(new Person("刘俄式"));
-        list.add(new Person("Tony"));
-        list.add(new Person("老刘"));
-        list.add(new Person("葛优"));
-        list.add(new Person("安传鑫"));
-        list.add(new Person("温松"));
-        list.add(new Person("成龙"));
-        list.add(new Person("那英"));
-        list.add(new Person("刘甫"));
-        list.add(new Person("沙宝亮"));
-        list.add(new Person("张梁"));
-        list.add(new Person("张大爷"));
-        list.add(new Person("张哥"));
-        list.add(new Person("张娃"));
-        list.add(new Person("张丽"));
-        list.add(new Person("吴亮"));
-        list.add(new Person("Tom"));
-        list.add(new Person("安在"));
-        list.add(new Person("小李"));
-        list.add(new Person("贝阿朵"));
-        list.add(new Person("赵二喜"));
-        list.add(new Person("阿道夫"));
-        list.add(new Person("姜宇航"));
+        //list.add(new Person("Dave"));
+        //list.add(new Person("张晓飞"));
+        //list.add(new Person("杨光福"));
+        //list.add(new Person("阿钟"));
+        //list.add(new Person("胡继群"));
+        //list.add(new Person("徐歌阳"));
+        //list.add(new Person("钟泽兴"));
+        //list.add(new Person("宋浮点"));
+        //list.add(new Person("刘俄式"));
+        //list.add(new Person("Tony"));
+        //list.add(new Person("老刘"));
+        //list.add(new Person("葛优"));
+        //list.add(new Person("安传鑫"));
+        //list.add(new Person("温松"));
+        //list.add(new Person("成龙"));
+        //list.add(new Person("那英"));
+        //list.add(new Person("刘甫"));
+        //list.add(new Person("沙宝亮"));
+        //list.add(new Person("张梁"));
+        //list.add(new Person("张大爷"));
+        //list.add(new Person("张哥"));
+        //list.add(new Person("张娃"));
+        //list.add(new Person("张丽"));
+        //list.add(new Person("吴亮"));
+        //list.add(new Person("Tom"));
+        //list.add(new Person("安在"));
+        //list.add(new Person("小李"));
+        //list.add(new Person("贝阿朵"));
+        //list.add(new Person("赵二喜"));
+        //list.add(new Person("阿道夫"));
+        //list.add(new Person("姜宇航"));
+
+        list= PersonDAO.getPersonList();
 
         //对集合排序：按字母顺序排序
         Collections.sort(list, new Comparator<Person>() {

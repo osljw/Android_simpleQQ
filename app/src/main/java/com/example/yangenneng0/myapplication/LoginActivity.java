@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.example.yangenneng0.myapplication.dao.PersonDAO;
+import com.example.yangenneng0.myapplication.utils.APPglobal;
 import com.example.yangenneng0.myapplication.viewUI.RegistActivity;
 
 /**
@@ -128,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
             PersonDAO personDAO=new PersonDAO();
             boolean sussess=personDAO.chechLogin(email,password);
             if(sussess){  //信息合法
+                APPglobal.USERNAME=email;//保存用户登录信息到全局变量中
                 Intent intent=new Intent();
                 intent.setClass(LoginActivity.this,MainActivity.class);
                 LoginActivity.this.startActivity(intent);
