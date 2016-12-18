@@ -25,7 +25,8 @@
                 android:id="@+id/chatname"
                 android:layout_centerInParent="true"
                 android:textSize="20.0sp"
-                android:text="YEN" android:textColor="#ffffff"
+
+                android:textColor="#ffffff"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"/>
     </RelativeLayout>
     <!--导航布局结束-->

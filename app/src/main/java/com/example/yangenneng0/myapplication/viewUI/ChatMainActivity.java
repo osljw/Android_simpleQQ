@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.example.yangenneng0.myapplication.MainActivity;
 import com.example.yangenneng0.myapplication.R;
 import com.example.yangenneng0.myapplication.adapter.ChatMsgViewAdapter;
@@ -16,6 +17,7 @@ import com.example.yangenneng0.myapplication.utils.APPglobal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -42,6 +44,10 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
         initData();// 初始化数据
         mListView.setSelection(mAdapter.getCount() - 1);
 
+        TextView textView= (TextView) findViewById(R.id.chatname);
+        Bundle bundle = this.getIntent().getExtras();
+        textView.setText(bundle.getString("name")); //解析传递过来的参数
+
     }
 
     /**
@@ -57,26 +63,17 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
     }
 
+
     //消息数组
-    private String[] msgArray = new String[] { "在吗，有时间吗?", "有！你呢？", "我也有", "那走吧",
-            "走啊！去打球啊！", "要先吃点东西吗？", "不吃了", "好吧...",
-            "今晚去吃东西吧？", "确定吗？", "不然呢？", "OK,走起！！" };
+    private String[] msgArray = new String[] { "您好，我是自动回复机器人，输入关键字即可和我聊天，比如:【hello】 【你好】 【再见】 【...】" };
     //时间数组
-    private String[] dataArray = new String[] { "2016-12-11 18:00:02",
-            "2016-12-11 18:10:22", "2016-12-11 18:11:24",
-            "2016-12-11 18:20:23", "2016-12-11 18:30:31",
-            "2016-12-11 18:35:37", "2016-12-11 18:40:13",
-            "2016-12-11 18:50:26", "2016-12-11 18:52:57",
-            "2016-12-11 18:55:11", "2016-12-11 18:56:45",
-            "2016-12-11 18:57:33", };
-    //数组总数
-    private final static int COUNT = 12;
+    private String[] dataArray = new String[] { getDate()};
 
     /**
      * 模拟加载消息历史，实际开发可以从数据库中读出
      */
     public void initData() {
-        for (int i = 0; i < COUNT; i++) {
+        for (int i = 0; i < msgArray.length; i++) {
             ChatMsgEntity entity = new ChatMsgEntity();
             entity.setDate(dataArray[i]);
             if (i % 2 == 0) {
@@ -119,13 +116,25 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
     private void send() {
         String contString = mEditTextContent.getText().toString();
         if (contString.length() > 0) {
+
+            //-----------发送者-------------
             ChatMsgEntity entity = new ChatMsgEntity();
-            entity.setName("YEN");      //设置发送消息消息者姓名
+            entity.setName(APPglobal.NAME);      //设置发送消息消息者姓名
             entity.setDate(getDate());  //设置格式化的发送时间
             entity.setMessage(contString); //设置发送内容
             entity.setMsgType(false);      //设置消息类型，true 接受的 false发送的
-
             mDataArrays.add(entity);
+            mAdapter.notifyDataSetChanged();// 通知ListView，数据已发生改变
+
+           //-----------自动回复-------------
+            Bundle bundle = this.getIntent().getExtras();//解析传递过来的参数
+            String name = bundle.getString("name");
+            ChatMsgEntity chatMsgEntity=new ChatMsgEntity();
+            chatMsgEntity.setName(name);
+            chatMsgEntity.setDate(getDate());  //设置格式化的发送时间
+            chatMsgEntity.setMessage(getRecive(contString)); //设置发送内容
+            chatMsgEntity.setMsgType(true);      //设置消息类型，true 接受的 false发送的
+            mDataArrays.add(chatMsgEntity);
             mAdapter.notifyDataSetChanged();// 通知ListView，数据已发生改变
 
             mEditTextContent.setText("");// 清空编辑框数据
@@ -141,7 +150,33 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
      */
     private String getDate() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         return format.format(new Date());
+    }
+
+    /**
+     * 根据输入的关键字自动回复
+     * @param key
+     * @return
+     */
+    private String getRecive(String key){
+        HashMap<String,String> ReciveValues=new HashMap<>();
+        //初始化自动回复关键字
+        ReciveValues.put("你好","你好~~~");
+        ReciveValues.put("hello","hello");
+        ReciveValues.put("再见"," 好的，再见啦");
+        ReciveValues.put("bye"," ^_^ bye bye.");
+        ReciveValues.put("...","为什么无语啊？");
+        ReciveValues.put("。。。","额，为什么无语啊？");
+        ReciveValues.put("？","怎么了，有问题吗？");
+        ReciveValues.put("?","怎么了，有问题吗？");
+
+        if(ReciveValues.containsKey(key.toLowerCase())){//查找是否存在
+            return ReciveValues.get(key);
+        }else {
+            return " ^_^ 抱歉，我还听不懂您说的，请等待我升级下一个版本....";
+        }
+
     }
 
 }
