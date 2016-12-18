@@ -11,6 +11,7 @@ import com.example.yangenneng0.myapplication.MainActivity;
 import com.example.yangenneng0.myapplication.R;
 import com.example.yangenneng0.myapplication.adapter.ChatMsgViewAdapter;
 import com.example.yangenneng0.myapplication.model.ChatMsgEntity;
+import com.example.yangenneng0.myapplication.utils.APPglobal;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,10 +80,14 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
             ChatMsgEntity entity = new ChatMsgEntity();
             entity.setDate(dataArray[i]);
             if (i % 2 == 0) {
-                entity.setName("CCC");   //设置对方姓名
+
+                Bundle bundle = this.getIntent().getExtras();//解析传递过来的参数
+                String name = bundle.getString("name");
+
+                entity.setName(name);   //设置对方姓名
                 entity.setMsgType(true); // 收到的消息
             } else {
-                entity.setName("YEN");   //设置自己姓名
+                entity.setName(APPglobal.NAME);   //设置自己姓名
                 entity.setMsgType(false);// 发送的消息
             }
             entity.setMessage(msgArray[i]);//消息内容
@@ -135,7 +140,7 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
      * @return 当前时间
      */
     private String getDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(new Date());
     }
 

@@ -53,6 +53,9 @@ public class MoodDAO {
      * @return
      */
     public boolean insert(MoodEntity moodEntity){
+        if(moodEntityArrayList==null){
+            getmoodEntityArrayList();
+        }
         try {
             moodEntityArrayList.add(moodEntity);
             DbConnection conn=new DbConnection();

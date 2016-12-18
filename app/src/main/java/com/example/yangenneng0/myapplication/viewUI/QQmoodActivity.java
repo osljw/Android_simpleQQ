@@ -38,8 +38,7 @@ public class QQmoodActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 MoodDAO moodDAO=new MoodDAO();
                 MoodEntity moodEntity=new MoodEntity(contentTV.getText().toString(),getDate());
-                if(moodDAO.insert(moodEntity))
-                {
+                if(moodDAO.insert(moodEntity)){
                     Toast.makeText(QQmoodActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent();
                     intent.setClass(QQmoodActivity.this,QzoneActivity.class);
@@ -57,7 +56,7 @@ public class QQmoodActivity  extends AppCompatActivity {
      * @return 当前时间
      */
     private String getDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(new Date());
     }
 

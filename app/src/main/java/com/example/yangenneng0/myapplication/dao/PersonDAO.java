@@ -47,6 +47,25 @@ public class PersonDAO {
         return personList;
     }
 
+
+    /**
+     * 根据用户名查找用户真实姓名
+     * @param username
+     * @return
+     */
+    public static String findNameByUsername(String username){
+        if(null==personList){
+            getPersonList();
+        }
+        for ( int i = 0; i < personList.size(); i++ ) {
+            Person person=personList.get(i);
+            if(username.equals(person.getUsername())){
+                return person.getName();
+            }
+        }
+        return "";
+    }
+
     /**
      * 查找用户名是否存在
      * @param username

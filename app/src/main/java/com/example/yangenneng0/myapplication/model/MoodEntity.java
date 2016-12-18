@@ -19,6 +19,7 @@ public class MoodEntity {
         this.content = content;
         this.time = time;
         this.person= APPglobal.NAME;//获取当前登陆的用户姓名
+        //this.person=APPglobal.readFromPre();
     }
 
     public MoodEntity(String content, String time,String personname) {

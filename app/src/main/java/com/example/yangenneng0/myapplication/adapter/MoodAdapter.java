@@ -50,7 +50,7 @@ public class MoodAdapter extends BaseAdapter {
         }
         ViewHolder holder = getViewHolder(convertView);
         MoodEntity kd = list.get(position);
-        holder.tv_content.setText(kd.getContent());
+        holder.tv_content.setText("["+kd.getPerson()+"] 说:"+kd.getContent());//作者+内容
         holder.tv_time.setText(kd.getTime());
         return convertView;
     }

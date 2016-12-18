@@ -2,7 +2,7 @@ package com.example.yangenneng0.myapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,9 +72,17 @@ public class PersonAdapter  extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent=new Intent();
                 intent.setClass(context,ChatMainActivity.class);
+                Bundle bundle = new Bundle();//传递过去的用户参数
+                bundle.putString("name", (list.get(position).getName()));
+                intent.putExtras(bundle);
                 context.startActivity(intent);
-                //提示当前点击的是哪个类
-                Snackbar.make(v, "position:"+position, Snackbar.LENGTH_LONG)  .setAction("Action", null).show();
+
+                //
+                //Intent intent=new Intent();
+                //intent.setClass(context,ChatMainActivity.class);
+                //context.startActivity(intent);
+                ////提示当前点击的是哪个类
+                //Snackbar.make(v, "position:"+position, Snackbar.LENGTH_LONG)  .setAction("Action", null).show();
             }
         });
 
