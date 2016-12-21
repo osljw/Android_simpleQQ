@@ -248,39 +248,8 @@ public class MainActivity extends AppCompatActivity
      */
     private void initData() {
         list = new ArrayList<>();
-        //list.add(new Person("Dave"));
-        //list.add(new Person("张晓飞"));
-        //list.add(new Person("杨光福"));
-        //list.add(new Person("阿钟"));
-        //list.add(new Person("胡继群"));
-        //list.add(new Person("徐歌阳"));
-        //list.add(new Person("钟泽兴"));
-        //list.add(new Person("宋浮点"));
-        //list.add(new Person("刘俄式"));
-        //list.add(new Person("Tony"));
-        //list.add(new Person("老刘"));
-        //list.add(new Person("葛优"));
-        //list.add(new Person("安传鑫"));
-        //list.add(new Person("温松"));
-        //list.add(new Person("成龙"));
-        //list.add(new Person("那英"));
-        //list.add(new Person("刘甫"));
-        //list.add(new Person("沙宝亮"));
-        //list.add(new Person("张梁"));
-        //list.add(new Person("张大爷"));
-        //list.add(new Person("张哥"));
-        //list.add(new Person("张娃"));
-        //list.add(new Person("张丽"));
-        //list.add(new Person("吴亮"));
-        //list.add(new Person("Tom"));
-        //list.add(new Person("安在"));
-        //list.add(new Person("小李"));
-        //list.add(new Person("贝阿朵"));
-        //list.add(new Person("赵二喜"));
-        //list.add(new Person("阿道夫"));
-        //list.add(new Person("姜宇航"));
 
-        list= PersonDAO.getPersonList();
+        list= PersonDAO.getPersonList();//数据库中的联系人列表
 
         //对集合排序：按字母顺序排序
         Collections.sort(list, new Comparator<Person>() {

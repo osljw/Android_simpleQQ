@@ -44,7 +44,7 @@ public class QQmoodActivity  extends AppCompatActivity {
                     intent.setClass(QQmoodActivity.this,QzoneActivity.class);
                     QQmoodActivity.this.startActivity(intent);
                 }
-                Toast.makeText(QQmoodActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(QQmoodActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -16,6 +16,7 @@ import java.util.List;
  * DateTime: 2016/12/11 17:58
  * Description: 聊天记录ListView的Adapter
  */
+//BaseAdapter就Android应用程序中经常用到的基础数据适配器，它的主要用途是将一组数据传到像ListView、Spinner、Gallery及GridView等UI显示组件，它是继承自接口类Adapter
 public class ChatMsgViewAdapter extends BaseAdapter {
 
     //消息类型
@@ -26,11 +27,11 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
     private static final int ITEMCOUNT = 2;// 消息类型的总数
     private List<ChatMsgEntity> coll;      // 消息对象数组
-    private LayoutInflater mInflater;
+    private LayoutInflater mInflater;//LayoutInflater主要是用于加载布局的。LayoutInflater技术广泛应用于需要动态添加View的时候，比如在ScrollView和ListView中
 
     public ChatMsgViewAdapter(Context context, List<ChatMsgEntity> coll) {
         this.coll = coll;
-        mInflater = LayoutInflater.from(context);
+        mInflater = LayoutInflater.from(context);//首先需要获取到LayoutInflater的实例
     }
 
     @Override
@@ -84,13 +85,13 @@ public class ChatMsgViewAdapter extends BaseAdapter {
                 convertView=mInflater.inflate(R.layout.chatting_item_msg_text_right,null);
             }
 
-            viewHolder=new ViewHolder();  //自定义类
+            viewHolder=new ViewHolder();  //自定义类 ViewHolder通常出现在适配器里，为的是listview滚动的时候快速设置值，而不必每次都重新创建很多对象，从而提升性能。
             viewHolder.tvSendTime= (TextView) convertView.findViewById(R.id.tv_sendtime);
             viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
             viewHolder.tvContent = (TextView) convertView .findViewById(R.id.tv_chatcontent);
             viewHolder.isComMsg = isComMsg;
 
-            convertView.setTag(viewHolder);
+            convertView.setTag(viewHolder);//使用setTag把查找的view缓存起来方便多次重用
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

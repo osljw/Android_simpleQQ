@@ -55,6 +55,15 @@ public class CameraActivity  extends AppCompatActivity {
 
     }
 
+    /**
+     * 想在Activity中得到新打开Activity关闭后返回的数据，你需要使用系统提供的
+     * startActivityForResult(Intent intent,int requestCode)方法打开新的Activity，
+     * 新的Activity关闭后会向前面的Activity传回数据，为了得到传回的数据，
+     * 你必须在前面的Activity中重写onActivityResult(int requestCode, int resultCode,Intent data)方法
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

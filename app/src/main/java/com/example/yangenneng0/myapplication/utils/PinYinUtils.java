@@ -33,6 +33,6 @@ public class PinYinUtils {
                 sb.append(arr[i]);
             }
         }
-        return sb.toString();
+        return sb.toString().toUpperCase();
     }
 }

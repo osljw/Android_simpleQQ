@@ -70,7 +70,7 @@ public class ChatMainActivity extends Activity implements View.OnClickListener {
     private String[] dataArray = new String[] { getDate()};
 
     /**
-     * 模拟加载消息历史，实际开发可以从数据库中读出
+     * 加载消息历史，从数据库中读出
      */
     public void initData() {
         for (int i = 0; i < msgArray.length; i++) {

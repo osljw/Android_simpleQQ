@@ -63,6 +63,14 @@ public class WordsNavigation extends View {
 
     /*-----------------继承View类自动生成  end----------------*/
 
+
+    /*
+        可以说重载onMeasure()，onLayout()，onDraw()三个函数构建了自定义View的外观形象。再加上onTouchEvent()等重载
+        视图的行为，可以构建任何我们需要的可感知到的自定义View。
+        1.View本身大小多少，这由onMeasure()决定；
+        2.View在ViewGroup中的位置如何，这由onLayout()决定；
+        3.绘制View，onDraw()定义了如何绘制这个View。
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
