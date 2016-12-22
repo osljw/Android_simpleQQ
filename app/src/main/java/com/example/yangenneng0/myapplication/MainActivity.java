@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
 
     //---联系人列表属性
-    private Handler handler;        //
+    private Handler handler;        //Handler主要接受子线程发送的数据， 并用此数据配合主线程更新UI。
     private List<Person> list;      //联系人列表基本信息
     private TextView tv;            //绘制的字母
     private ListView listView;      //使用适配器的联系人列表

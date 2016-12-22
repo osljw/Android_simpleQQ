@@ -81,7 +81,7 @@ public class WordsNavigation extends View {
 
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {//Canvas类相当于一个画布，你可以在里面画很多东西
         super.onDraw(canvas);
         for (int i = 0; i < words.length; i++) {
 
@@ -92,19 +92,20 @@ public class WordsNavigation extends View {
             } else {
                 wordsPaint.setColor(Color.GRAY); //否则为黑色字体
             }
-            //获取文字的宽高
+            //获取文字的宽高 即字母所占的大小
             Rect rect = new Rect();
             wordsPaint.getTextBounds(words[i], 0, 1, rect);
             int wordWidth = rect.width();
             //绘制字母
             float wordX = itemWidth / 2 - wordWidth / 2;
             float wordY = itemWidth / 2 + i * itemHeight;
-            canvas.drawText(words[i], wordX, wordY, wordsPaint);
+            canvas.drawText(words[i], wordX, wordY, wordsPaint);//第一个参数是我们需要绘制的文本，第四个参数是我们的画笔
         }
     }
 
 
     /**
+     * 实现手指滑动或者点击字母列表的时候来改变当前选中的字母和在屏幕中央进行显示。
      * 当手指触摸按下的时候改变字母背景颜色
      */
     @Override
@@ -122,7 +123,8 @@ public class WordsNavigation extends View {
                     //回调按下的字母
                     listener.wordsChange(words[touchIndex]);
                 }
-                invalidate();
+                invalidate();//请求重绘View树，即draw()过程，假如视图发生大小没有变化就不会调用layout()过程，并且只绘制那些“需要重绘的”
+                            //视图，即谁(View的话，只绘制该View ；ViewGroup，则绘制整个ViewGroup)请求invalidate()方法，就绘制该视图。
                 break;
             case MotionEvent.ACTION_UP:
                 //手指抬起,不做任何操作
