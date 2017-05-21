@@ -1,15 +1,15 @@
 # simpleQQ
 #
-# 简单的Android聊天小程序；
-# 支持登陆、注册；
-# 支持相机拍照保存、本地相册查看、视频播放；
-# 支持短信发送，分享软件给朋友；
-# 支持系统设置、高德地图定位；
-# 支持与好友聊天(由于未使用服务器，暂只支持自动回复)、发说说、看动态。
+### 简单的Android聊天小程序；
+### 支持登陆、注册；
+### 支持相机拍照保存、本地相册查看、视频播放；
+### 支持短信发送，分享软件给朋友；
+### 支持系统设置、高德地图定位；
+### 支持与好友聊天(由于未使用服务器，暂只支持自动回复)、发说说、看动态。
 
-# 详细介绍可查看博客： 安卓项目SimpleQQ概述 http://blog.csdn.net/yen_csdn/article/details/53729978
+## 更详细介绍可查看博客： 安卓项目SimpleQQ概述 http://blog.csdn.net/yen_csdn/article/details/53729978
 
-#截图
+#效果截图
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/22.png)
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/23.png)
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/24.png)
