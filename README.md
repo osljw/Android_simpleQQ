@@ -7,6 +7,8 @@
 # 支持系统设置、高德地图定位；
 # 支持与好友聊天(由于未使用服务器，暂只支持自动回复)、发说说、看动态。
 
+# 详细介绍可查看博客： 安卓项目SimpleQQ概述 http://blog.csdn.net/yen_csdn/article/details/53729978
+
 #截图
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/22.png)
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/23.png)
