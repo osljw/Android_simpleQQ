@@ -9,7 +9,8 @@
 
 ## 更详细介绍可查看博客： 安卓项目SimpleQQ概述 http://blog.csdn.net/yen_csdn/article/details/53729978
 
-#效果截图
+# 效果截图
+
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/22.png)
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/23.png)
 ![image](https://github.com/YEN-GitHub/simpleQQ/blob/master/app/src/main/res/SimpleQQImg/24.png)
