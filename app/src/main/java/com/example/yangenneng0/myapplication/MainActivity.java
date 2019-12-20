@@ -1,16 +1,21 @@
 package com.example.yangenneng0.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,8 +68,8 @@ public class MainActivity extends AppCompatActivity
         word = (WordsNavigation) findViewById(R.id.words);
         listView = (ListView) findViewById(R.id.list);
 
-        initData();//初始化联系人数据
-        initListView();//初始化联系人列表
+        //initData();//初始化联系人数据
+        //initListView();//初始化联系人列表
 
         handler = new Handler();//设置列表点击滑动监听
         word.setOnWordsChangeListener(this);
@@ -170,6 +175,16 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean needPermissionGranted(String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED) {
+                // 只要有一个权限没有被授予, 则直接返回 false
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 左侧导航被选择时触发的事件
      * @param item 左侧选中的菜单
@@ -182,11 +197,22 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if ( id == R.id.nav_camera ) {//拍照
-            // Handle the camera action
-            Intent intent=new Intent();
-            intent.setClass(MainActivity.this,CameraActivity.class);
-            MainActivity.this.startActivity(intent);
+            String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (needPermissionGranted(permissions)) {
+                // Permission is not granted
+                Log.e("permission", "Permission is not granted");
 
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.CAMERA)) {
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+                    Log.e("permission", "===== rationable =====");
+                }
+                ActivityCompat.requestPermissions(this, permissions, 1);
+                return false;
+            }
+            startCamera();
         } else if ( id == R.id.nav_gallery ) {  //相册 获取指定目录下的所有照片
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -223,6 +249,30 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void startCamera() {
+        // Handle the camera action
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this,CameraActivity.class);
+        MainActivity.this.startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_DENIED)
+                        return;
+                }
+                startCamera();
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
 
     /**
      * 继承 WordsNavigation.onWordsChangeListener 手指按下字母改变监听回调
@@ -250,6 +300,7 @@ public class MainActivity extends AppCompatActivity
         list = new ArrayList<>();
 
         list= PersonDAO.getPersonList();//数据库中的联系人列表
+        if(list == null) return;
 
         //对集合排序：按字母顺序排序
         Collections.sort(list, new Comparator<Person>() {

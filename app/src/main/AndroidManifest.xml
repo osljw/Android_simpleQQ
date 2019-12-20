@@ -11,6 +11,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!--允许程序设置内置sd卡的写权限-->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
     <!-- 短信使用申明 -->
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
@@ -62,14 +70,20 @@
 
 
         <!--注册高德Key使用的SHA1值-->
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="03e9443c565a13a314c8ea2a8bcd606d">//开发者申请的key
-        </meta-data>
+        <!--<meta-data android:name="com.amap.api.v2.apikey" android:value="03e9443c565a13a314c8ea2a8bcd606d">//开发者申请的key</meta-data>-->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
 
         <!--实现定位-->
         <service android:name="com.amap.api.location.APSService"/>
-
-
-        <uses-sdk android:minSdkVersion="14"  android:targetSdkVersion="17" />
 
     </application>
 

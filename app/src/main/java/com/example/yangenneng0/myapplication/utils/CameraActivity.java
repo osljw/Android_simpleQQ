@@ -1,11 +1,14 @@
 package com.example.yangenneng0.myapplication.utils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.example.yangenneng0.myapplication.MainActivity;
 import com.example.yangenneng0.myapplication.R;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
@@ -24,7 +28,8 @@ import java.io.File;
  */
 public class CameraActivity  extends AppCompatActivity {
 
-    private String path = Environment.getExternalStorageDirectory() + "/QQ_Test/";//自定保存路径
+    //private String path = Environment.getExternalStorageDirectory() + "/QQ_Test/";//自定保存路径
+    private String path = new File(Environment.getExternalStorageDirectory(), "QQ_Test").toString();//自定保存路径
     private String fileName;//文件名称
 
 
@@ -33,13 +38,23 @@ public class CameraActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        File file = new File(path);//创建文件
-        if (!file.exists()) {
-            file.mkdir();
-        }
+
+        //File file = new File(path);//创建文件
+        //File file = new File(Environment.getExternalStorageDirectory(), "QQ_Test");
+//        if (!file.exists()) {
+//            file.mkdir();
+//        }
         fileName = String.valueOf(System.currentTimeMillis())+".jpg";
+        File file = new File(path, fileName);
+        Log.e("file_name", file.getAbsolutePath());
+        //Uri fileUri = Uri.fromFile(new File(path + fileName));
+        Uri fileUri = FileProvider.getUriForFile(this,
+                this.getApplicationContext().getPackageName() + ".provider",
+                 file);
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path + fileName)));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         startActivityForResult(intent, Activity.DEFAULT_KEYS_DIALER);
 
         //返回首页
@@ -71,15 +86,16 @@ public class CameraActivity  extends AppCompatActivity {
 
         switch (requestCode) {
             case Activity.DEFAULT_KEYS_DIALER: {
-                File file = new File(path + fileName);
-                Log.e("mTag", file.length() / 1024 + "");
+                //File file = new File(path + fileName);
+                //Log.e("mTag", file.length() / 1024 + "");
                 break;
             }
         }
 
         //这个广播的目的就是更新图库，发了这个广播进入相册就可以找到保存的图片了
-        File file = new File(path + fileName);
+        File file = new File(path, fileName);
         Uri localUri = Uri.fromFile(file);
+        Log.e("local uri", localUri.toString());
         Intent localIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri);
         sendBroadcast(localIntent);
 

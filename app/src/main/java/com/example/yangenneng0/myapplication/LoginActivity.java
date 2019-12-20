@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +15,15 @@ import android.widget.*;
 import com.example.yangenneng0.myapplication.dao.PersonDAO;
 import com.example.yangenneng0.myapplication.utils.APPglobal;
 import com.example.yangenneng0.myapplication.viewUI.RegistActivity;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+
 
 /**
  * 登录页面
@@ -39,7 +49,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if ( id == R.id.login || id == EditorInfo.IME_NULL ) {
-                    attemptLogin();//调用函数检查登陆信息是否合法
+                    //attemptLogin();//调用函数检查登陆信息是否合法
+                    login();
                     return true;
                 }
                 return false;
@@ -51,7 +62,8 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();//调用函数检查登陆信息是否合法
+                //attemptLogin();//调用函数检查登陆信息是否合法
+                login();
             }
         });
 
@@ -75,6 +87,77 @@ public class LoginActivity extends AppCompatActivity {
             isExit=false;
         }
     };
+
+    static String generateJwt() {
+        Date var0 = new Date();
+        Long var1 = Long.valueOf(var0.getTime());
+        Date var2 = new Date(var1.longValue() + 200000L);
+        HashMap var3 = new HashMap();
+        var3.put("typ", "JWT");
+        var3.put("alg", "HS256");
+        String var4 = "";
+
+        try {
+            var4 = Jwts.builder().
+                    setHeader(var3).
+                    setIssuer(sAuthOctoKey).    //请求的发起者；
+                    setIssuedAt(var0).          //请求的发起时间；
+                    setExpiration(var2).        //expTime是过期时间，当前时间+200秒；
+                    signWith(SignatureAlgorithm.HS256, Base64.encode(sAuthSecret.getBytes("UTF-8")))   //两个参数，一个是加密算法，一个秘钥；SECRET_KEY是加密算法对应的密钥，这里使用额是HS256加密算法；
+                    .claim("key","vaule")               //该方法是在JWT中加入值为vaule 的 key 自定义字段；
+            compact();
+        } catch (Exception var6) {
+            Log.e("HttpRequest", "octo generate error...", var6);
+        }
+
+        return var4;
+    }
+
+
+    private void login() {
+        Log.e("login:", "=====hello====");
+        //创建okHttpClient对象
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+
+        String name = mEmailView.getText().toString();
+        String passwd = mPasswordView.getText().toString();
+
+        HttpUrl httpurl = new HttpUrl.Builder()
+                .scheme("http")
+                .host("10.130.47.187")
+                .port(1234)
+                .addPathSegment("login")
+                .addQueryParameter("name", name)
+                .addQueryParameter("passwd", passwd)
+                .build();
+
+
+        //创建一个Request
+        final Request request = new Request.Builder()
+                .url(httpurl)
+                .addHeader("Authorization", "Bearer " + generateJwt())
+                .build();
+
+        //new call
+        Log.e("login:", request.toString());
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Request request, IOException e)
+            {
+                Log.e("login:", "======login fail=====");
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException
+            {
+                //String htmlStr =  response.body().string();
+                Log.e("login:", "======login =====");
+            }
+        });
+    }
 
     //退出确认
     //@Override
